@@ -39,13 +39,15 @@ M.input = function()
 			vim.api.nvim_win_close(win, true)
 
 			on_confirm(new_text) -- Call original callback
-		end, { buffer = buf })
+		end, { buffer = buf, nowait = true })
 
 		-- Cancel the change
-		vim.keymap.set("n", "<Esc>", function()
+		local close = function()
 			vim.api.nvim_win_close(win, true)
-			on_confirm(nil)
-		end, { buffer = buf })
+			on_choice(nil, nil)
+		end
+		vim.keymap.set("n", "<Esc>", close, { buffer = buf, nowait = true })
+		vim.keymap.set("n", "q", close, { buffer = buf, nowait = true })
 
 		vim.cmd("startinsert!") -- Start in insert mode
 	end

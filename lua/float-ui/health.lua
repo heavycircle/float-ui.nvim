@@ -5,7 +5,8 @@ local error = vim.health.error or vim.health.report_error
 
 local M = {}
 
-M.check = function()
+---@param opts? {checkhealth?: boolean}
+M.check = function(opts)
 	start("deps")
 
 	if vim.fn.has("nvim-0.10.0") ~= 1 then
@@ -21,7 +22,14 @@ M.check = function()
 			opt = "vim.ui.input",
 			handler = vim.ui.input,
 			want = function()
-				return require("float-ui.lsp").input
+				return require("float-ui.ui").input
+			end,
+		},
+		{
+			opt = "vim.ui.select",
+			handler = vim.ui.select,
+			want = function()
+				return require("float-ui.ui").select
 			end,
 		},
 	}

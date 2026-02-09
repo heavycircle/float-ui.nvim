@@ -7,8 +7,11 @@ M.setup = function()
         return
     end
 
-	require("float-ui.lsp")
-    -- require("float-ui.pum").setup()
+    -- Changes
+    require("float-ui.handlers").setup()
+
+    -- Hooks
+	require("float-ui.ui")
 end
 
 M.disable = function() end
